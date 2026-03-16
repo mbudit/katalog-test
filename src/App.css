@@ -16,6 +16,7 @@
 
 .footer p {
   color: var(--text-secondary-dark);
+  font-weight: 1000;
   font-size: 0.75rem;
   letter-spacing: 0.5px;
   line-height: 1.6;
@@ -23,7 +24,7 @@
 }
 
 .footer .footer-title {
-  font-weight: 500;
+  font-weight: 1000;
   color: var(--text-primary-dark);
   /* opacity: 0.6; */
   margin-bottom: 2px;
