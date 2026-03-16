@@ -1,0 +1,152 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at center, #27272a 0%, #0f0f11 100%);
+  position: relative;
+}
+
+.header {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 16px 20px 6px;
+  z-index: 10;
+  animation: fadeInDown 1s ease-out;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #d4af37, #fdf0a6, #c5a017);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.catalog-wrapper {
+  flex: 1; /* Occupy remaining space below header */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px 30px;
+  box-sizing: border-box;
+  min-height: 0; /* Prevents flex flex-grow from overflowing */
+  overflow: hidden; 
+}
+
+.book-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px; /* Optional max width so it doesn't get ridiculously large on ultrawide */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.flip-book {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
+}
+
+.page {
+  background-color: #fff;
+  overflow: hidden;
+  /* subtle shadow on pages */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.page-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fdfdfd;
+}
+
+.page-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Match perfectly to the page size without clipping */
+  pointer-events: none; /* Let drag events pass through to wrapper */
+  user-select: none;
+  -webkit-user-drag: none;
+  background-position: center;
+}
+
+/* Realistic inner shadows for the spine (center) fold */
+.page.--left .page-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to left, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+
+.page.--right .page-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  color: #333;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .header p {
+    font-size: 0.8rem;
+  }
+  
+  .catalog-wrapper {
+    padding: 10px;
+  }
+}
