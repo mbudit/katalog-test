@@ -8,12 +8,12 @@ const FlipBook = HTMLFlipBook as any;
 
 // Dynamically import all images in the catalogue-pages folder
 // @ts-ignore
-const imagesGlob = import.meta.glob('./assets/catalogue-pages/catalogue-*.png', { eager: true, query: '?url', import: 'default' });
+const imagesGlob = import.meta.glob('./assets/catalogue-pages/catalogue-*.webp', { eager: true, query: '?url', import: 'default' });
 
 const sortedImages = Object.entries(imagesGlob)
   .sort(([pathA], [pathB]) => {
-    const numA = parseInt(pathA.match(/catalogue-(\d+)\.png/)?.[1] || '0', 10);
-    const numB = parseInt(pathB.match(/catalogue-(\d+)\.png/)?.[1] || '0', 10);
+    const numA = parseInt(pathA.match(/catalogue-(\d+)\.webp/)?.[1] || '0', 10);
+    const numB = parseInt(pathB.match(/catalogue-(\d+)\.webp/)?.[1] || '0', 10);
     return numA - numB;
   })
   .map(([_, url]) => url as string);
@@ -49,14 +49,14 @@ function App() {
             maxWidth={isMobile ? 600 : 1000}
             minHeight={isMobile ? 300 : 400}
             maxHeight={isMobile ? 900 : 1533}
-            maxShadowOpacity={isMobile ? 0.3 : 0.5}
+            maxShadowOpacity={isMobile ? 0 : 0.5}
             showCover={true}
             mobileScrollSupport={false}
             className="flip-book"
             showPageCorners={!isMobile}
             flippingTime={isMobile ? 600 : 800}
             usePortrait={isMobile}
-            drawShadow={true}
+            drawShadow={!isMobile}
             startZIndex={20}
             startPage={0}
             useMouseEvents={true}
@@ -65,7 +65,7 @@ function App() {
             {sortedImages.map((src, index) => (
               <div className="page" key={index}>
                 <div className="page-content">
-                  <img src={src} alt={`Page ${index + 1}`} className="page-image" draggable="false" />
+                  <img src={src} alt={`Page ${index + 1}`} className="page-image" draggable="false" loading="lazy" decoding="async" />
                   <div className="page-number">{index + 1}</div>
                 </div>
               </div>
