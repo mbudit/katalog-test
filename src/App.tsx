@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import './App.css';
 
@@ -17,36 +18,49 @@ const sortedImages = Object.entries(imagesGlob)
   })
   .map(([_, url]) => url as string);
 
+const MOBILE_BREAKPOINT = 768;
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    () => window.innerWidth <= MOBILE_BREAKPOINT
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  return isMobile;
+}
+
 function App() {
+  const isMobile = useIsMobile();
+
   return (
     <div className="app-container">
-      <header className="header">
-        <h1>Exclusive Collection</h1>
-        <p>Swipe or drag pages to explore our latest catalog.</p>
-      </header>
-      
       <main className="catalog-wrapper">
         <div className="book-container">
           <FlipBook
             width={595}
             height={842}
             size="stretch"
-            minWidth={315}
-            maxWidth={1000}
-            minHeight={400}
-            maxHeight={1533}
-            maxShadowOpacity={0.5}
+            minWidth={isMobile ? 280 : 315}
+            maxWidth={isMobile ? 600 : 1000}
+            minHeight={isMobile ? 300 : 400}
+            maxHeight={isMobile ? 900 : 1533}
+            maxShadowOpacity={isMobile ? 0.3 : 0.5}
             showCover={true}
             mobileScrollSupport={true}
             className="flip-book"
-            showPageCorners={true}
-            flippingTime={800}
-            usePortrait={false}
+            showPageCorners={!isMobile}
+            flippingTime={isMobile ? 600 : 800}
+            usePortrait={isMobile}
             drawShadow={true}
             startZIndex={20}
             startPage={0}
             useMouseEvents={true}
-            swipeDistance={30}
+            swipeDistance={isMobile ? 20 : 30}
           >
             {sortedImages.map((src, index) => (
               <div className="page" key={index}>
@@ -59,8 +73,15 @@ function App() {
           </FlipBook>
         </div>
       </main>
+
+      <footer className="footer">
+        <p className="footer-title">Catatan:</p>
+        <p>Geser halaman dari kanan ke kiri untuk beralih ke halaman berikutnya.</p>
+        <p>Geser halaman dari kiri ke kanan untuk beralih ke halaman sebelumnya.</p>
+      </footer>
     </div>
   );
 }
 
 export default App;
+

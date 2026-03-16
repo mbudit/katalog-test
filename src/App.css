@@ -3,36 +3,30 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  background: radial-gradient(circle at center, #27272a 0%, #0f0f11 100%);
+  background: url('./assets/background.jpg') center/cover no-repeat;
   position: relative;
 }
 
-.header {
+.footer {
   flex-shrink: 0;
   text-align: center;
-  padding: 16px 20px 6px;
+  padding: 10px 20px 14px;
   z-index: 10;
-  animation: fadeInDown 1s ease-out;
 }
 
-.header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #fff;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  background: linear-gradient(45deg, #d4af37, #fdf0a6, #c5a017);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.header p {
+.footer p {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  letter-spacing: 1px;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  /* opacity: 0.8; */
+}
+
+.footer .footer-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  /* opacity: 0.6; */
+  margin-bottom: 2px;
 }
 
 .catalog-wrapper {
@@ -41,10 +35,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 40px 30px;
+  padding: 40px 40px 30px;
   box-sizing: border-box;
   min-height: 0; /* Prevents flex flex-grow from overflowing */
-  overflow: hidden; 
+  overflow: visible; 
 }
 
 .book-container {
@@ -137,16 +131,34 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
-  .header h1 {
-    font-size: 1.6rem;
+@media (max-width: 768px) {
+  .app-container {
+    height: 100dvh; /* dynamic viewport height for mobile browsers */
   }
-  
-  .header p {
-    font-size: 0.8rem;
-  }
-  
+
   .catalog-wrapper {
-    padding: 10px;
+    padding: 16px 8px 8px;
+  }
+
+  .book-container {
+    max-width: 100%;
+  }
+
+  .flip-book {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .footer {
+    padding: 8px 16px 12px;
+  }
+
+  .footer p {
+    font-size: 0.65rem;
+    line-height: 1.5;
+  }
+
+  .page-number {
+    font-size: 0.65rem;
+    bottom: 10px;
   }
 }
