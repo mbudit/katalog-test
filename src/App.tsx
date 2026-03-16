@@ -51,7 +51,7 @@ function App() {
             maxHeight={isMobile ? 900 : 1533}
             maxShadowOpacity={isMobile ? 0.3 : 0.5}
             showCover={true}
-            mobileScrollSupport={true}
+            mobileScrollSupport={false}
             className="flip-book"
             showPageCorners={!isMobile}
             flippingTime={isMobile ? 600 : 800}
