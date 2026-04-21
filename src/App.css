@@ -135,6 +135,11 @@
   }
 }
 
+/* ===== Mobile Navigation Buttons ===== */
+.mobile-nav {
+  display: none; /* Hidden on desktop, shown via media query */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .app-container {
@@ -147,6 +152,7 @@
 
   .book-container {
     max-width: 100%;
+    flex-direction: column;
   }
 
   .flip-book {
@@ -174,5 +180,48 @@
   .page.--left .page-content::after,
   .page.--right .page-content::after {
     display: none;
+  }
+
+  /* Mobile nav buttons */
+  .mobile-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-top: 12px;
+    z-index: 30;
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(15, 15, 17, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(245, 245, 247, 0.9);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .mobile-nav-btn:active {
+    transform: scale(0.9);
+    background: rgba(15, 15, 17, 0.85);
+    box-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-nav-btn svg {
+    pointer-events: none;
   }
 }

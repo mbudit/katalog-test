@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import './App.css';
 
@@ -36,12 +36,22 @@ function useIsMobile() {
 
 function App() {
   const isMobile = useIsMobile();
+  const bookRef = useRef<any>(null);
+
+  const handlePrev = useCallback(() => {
+    bookRef.current?.pageFlip()?.flipPrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    bookRef.current?.pageFlip()?.flipNext();
+  }, []);
 
   return (
     <div className="app-container">
       <main className="catalog-wrapper">
         <div className="book-container">
           <FlipBook
+            ref={bookRef}
             width={595}
             height={842}
             size="stretch"
@@ -71,6 +81,31 @@ function App() {
               </div>
             ))}
           </FlipBook>
+
+          {isMobile && (
+            <div className="mobile-nav">
+              <button
+                id="nav-prev"
+                className="mobile-nav-btn mobile-nav-prev"
+                onClick={handlePrev}
+                aria-label="Previous page"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button
+                id="nav-next"
+                className="mobile-nav-btn mobile-nav-next"
+                onClick={handleNext}
+                aria-label="Next page"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 6 15 12 9 18" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </main>
 
